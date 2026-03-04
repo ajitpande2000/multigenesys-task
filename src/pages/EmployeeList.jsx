@@ -109,8 +109,10 @@ export const EmployeeList = () => {
             <Grid
               container
               column={12}
-              sx={{ marginBottom: '15px' }}
+              spacing={{ xs: 1, sm: 2 }}
+              sx={{ marginBottom: '15px', }}
               justifyContent="space-between"
+
             >
               <Grid item xs={4} >
                 <TextField
@@ -200,9 +202,6 @@ export const EmployeeList = () => {
                     maxHeight: 600,
                     overflowY: 'auto',
                     pb: 3,
-                    width: '100%',
-                    maxWidth: '100%',
-                    minWidth: 900,
                     '&::-webkit-scrollbar': {
                       width: '6px',
                     },
@@ -276,9 +275,13 @@ export const EmployeeList = () => {
                 {filteredEmployeeList?.length > 0 && !loading && (
                   <Box sx={{
                     display: 'flex',
+                    flexDirection: { xs: 'column', sm: 'row' },
+                    alignItems: { xs: 'center', sm: 'center' },
                     justifyContent: 'center',
+                    gap: { xs: 1, sm: 2 },
                     mt: 2,
-                    py: 2
+                    py: 2,
+                    width: '100%'
                   }}>
                     <Pagination
                       count={Math.ceil(filteredEmployeeList.length / cardRowsPerPage)}

@@ -24,9 +24,9 @@ export const EmployeeTable = ({ loading, data, page, onDeleteAction, paginatedDa
         <Box >
             <TableContainer component={Paper}
                 sx={{
-                    width: '100%',
-                    maxWidth: '100%',
-                    minWidth: 900,
+                    // width: '100%',
+                    // maxWidth: '100%',
+                    // minWidth: 900,
                     maxHeight: '650px',
                 }}>
                 <Table aria-label="employee table"
