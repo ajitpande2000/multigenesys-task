@@ -1,0 +1,18 @@
+{
+  "newEmployee": {
+    "name": "John Doe",
+    "emailId": "john.doe@company.com",
+    "mobile": "9876543210",
+    "countryId": "IN",
+    "state": "Maharashtra",
+    "district": "Pune"
+  },
+  "editEmployee": {
+    "name": "Jane Smith Updated",
+    "emailId": "jane.smith@company.com",
+    "mobile": "9876543200",
+    "countryId": "US",
+    "state": "California",
+    "district": "San Francisco"
+  }
+}
