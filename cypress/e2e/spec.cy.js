@@ -24,7 +24,7 @@ describe('Test Multigenesys Task', () => {
        cy.fixture('employee.json').as('formData'); 
        cy.get('@formData').then((formData) => {  
        cy.wait(1000)
-       cy.get('button.MuiIconButton-root').first().click();
+       cy.get('[data-testid="edit-btn"]').first().click(); 
        cy.get('input[placeholder="Enter full name"]').clear()
        cy.get('input[placeholder="Enter full name"]').type(formData.editEmployee.name);
        cy.get('input[name="emailId"]').clear().type(formData.editEmployee.emailId);  
@@ -45,7 +45,7 @@ describe('Test Multigenesys Task', () => {
        cy.get('@formData').then((formData) => { 
           cy.get('input[placeholder="Search employee by Id"]').clear().type(formData.searchAndDeleteEmployee.id)
           cy.get('[aria-label="employee table"] tbody tr')
-          cy.get('button.MuiIconButton-root').eq(1).click();         
+          cy.get('[data-testid="delete-btn"]').first().click();         
           cy.wait(1000)
           cy.contains('Delete Employee').click();
           cy.wait(1000)           
