@@ -87,6 +87,7 @@ export const EmployeeTable = ({ loading, data, page, onDeleteAction, paginatedDa
                                         <TableCell sx={{ fontSize: '0.8rem' }} align="left">{row.country ?? ''}</TableCell>
                                         <TableCell align="right" sx={{ py: 1 }}>
                                             <IconButton
+                                                data-testid="edit-btn"
                                                 size="small"
                                                 onClick={() => { onEditAction(row) }}
                                                 sx={{ mr: 1 }}
@@ -94,6 +95,7 @@ export const EmployeeTable = ({ loading, data, page, onDeleteAction, paginatedDa
                                                 <EditIcon fontSize="small" color="primary" />
                                             </IconButton>
                                             <IconButton
+                                                data-testid="delete-btn"
                                                 size="small"
                                                 onClick={() => { onDeleteAction(row) }}
                                                 sx={{ color: 'error.main' }}

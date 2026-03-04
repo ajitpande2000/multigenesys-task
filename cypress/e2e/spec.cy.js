@@ -1,6 +1,6 @@
 describe('Test Multigenesys Task', () => {
    beforeEach(() => {
-    cy.visit('http://localhost:5173/');
+    cy.visit('https://comfy-sable-bb1b49.netlify.app/');
     cy.wait(2000)
   });
   it('Add New Employee.', () => {
@@ -24,8 +24,7 @@ describe('Test Multigenesys Task', () => {
        cy.fixture('employee.json').as('formData'); 
        cy.get('@formData').then((formData) => {  
        cy.wait(1000)
-       cy.get('[aria-label="employee table"] tbody tr')
-         .first().find('svg[data-testid="EditIcon"] path[d*="17.25V21"]').click({ force: true });
+       cy.get('button.MuiIconButton-root').first().click();
        cy.get('input[placeholder="Enter full name"]').clear()
        cy.get('input[placeholder="Enter full name"]').type(formData.editEmployee.name);
        cy.get('input[name="emailId"]').clear().type(formData.editEmployee.emailId);  
@@ -46,7 +45,7 @@ describe('Test Multigenesys Task', () => {
        cy.get('@formData').then((formData) => { 
           cy.get('input[placeholder="Search employee by Id"]').clear().type(formData.searchAndDeleteEmployee.id)
           cy.get('[aria-label="employee table"] tbody tr')
-          cy.get('[data-testid="DeleteIcon"]').first().click();         
+          cy.get('button.MuiIconButton-root').eq(1).click();         
           cy.wait(1000)
           cy.contains('Delete Employee').click();
           cy.wait(1000)           
