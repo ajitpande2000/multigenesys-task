@@ -12,6 +12,7 @@ export const CommonToggle = ({ onToggle, selected }) => {
         <Box sx={{
             display: 'flex',
             justifyContent: 'center',
+            marginBottom: '12px'
         }}>
             <ToggleButtonGroup
                 value={selected}
@@ -19,7 +20,7 @@ export const CommonToggle = ({ onToggle, selected }) => {
                 onChange={onToggle}
                 orientation="horizontal"
                 sx={{
-                    marginBottom: '4px',
+
                     borderRadius: 24,
                     background: 'rgba(255,255,255,0.8)',
                     backdropFilter: 'blur(20px)',
