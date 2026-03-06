@@ -1,5 +1,5 @@
-import React from 'react'
-
+import React, { useState } from 'react'
+import { TableSortLabel } from '@mui/material';
 import {
     TableContainer,
     Table,
@@ -19,14 +19,12 @@ import { LoadingData } from '../common/LoadingData';
 import { NoDataAvailable } from '../common/NoDataAvailable';
 
 
-export const EmployeeTable = ({ loading, data, page, onDeleteAction, paginatedData, onEditAction, handleChangeRowsPerPage, handleChangePage, rowsPerPage }) => {
+export const EmployeeTable = ({ order, orderBy, handleSort, loading, data, page, onDeleteAction, paginatedData, onEditAction, handleChangeRowsPerPage, handleChangePage, rowsPerPage }) => {
+
     return (
         <Box >
             <TableContainer component={Paper}
                 sx={{
-                    // width: '100%',
-                    // maxWidth: '100%',
-                    // minWidth: 900,
                     maxHeight: '650px',
                 }}>
                 <Table aria-label="employee table"
@@ -36,10 +34,24 @@ export const EmployeeTable = ({ loading, data, page, onDeleteAction, paginatedDa
                     }} >
                     <TableHead>
                         <TableRow>
-                            <TableCell sx={{ backgroundColor: '#ff416c', borderTopLeftRadius: 16, }} className='table-header' align="left">#</TableCell>
+                            <TableCell sx={{ backgroundColor: '#ff416c', borderTopLeftRadius: 16, }} className='table-header' align="left">
+                                <TableSortLabel
+                                    active={orderBy === 'id'}
+                                    direction={orderBy === 'id' ? order : 'asc'}
+                                    onClick={() => handleSort('id')}
+                                >
+                                    ID
+                                </TableSortLabel></TableCell>
                             <TableCell sx={{ backgroundColor: '#ff416c', }} className='table-header' align="left">Name</TableCell>
                             <TableCell sx={{ backgroundColor: '#ff416c', }} className='table-header' align="left">Email</TableCell>
-                            <TableCell sx={{ backgroundColor: '#ff416c', }} className='table-header' align="left">Mobile</TableCell>
+                            <TableCell sx={{ backgroundColor: '#ff416c', }} className='table-header' align="left">
+                                <TableSortLabel
+                                    active={orderBy === 'mobile'}
+                                    direction={orderBy === 'mobile' ? order : 'asc'}
+                                    onClick={() => handleSort('mobile')}
+                                >
+                                    Mobile
+                                </TableSortLabel></TableCell>
                             <TableCell sx={{ backgroundColor: '#ff416c', }} className='table-header' align="left">  Country</TableCell>
                             <TableCell sx={{ backgroundColor: '#ff416c', borderTopRightRadius: 16 }} className='table-header' align="right"> Actions</TableCell>
                         </TableRow>

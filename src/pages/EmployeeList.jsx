@@ -20,6 +20,7 @@ import { EmployeeTable } from '../components/employee/EmployeeTable';
 import { EmployeeCard } from '../components/common/EmployeeCard';
 import { LoadingCard } from '../components/common/LoadingCard';
 import { CommonToggle } from '../components/common/CommonToggle';
+
 export const EmployeeList = () => {
   const dispatch = useDispatch();
   const { employeeList, loading } = useSelector((state) => state.employee);
@@ -31,7 +32,16 @@ export const EmployeeList = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [cardPage, setCardPage] = useState(0);
-  const [cardRowsPerPage, setCardRowsPerPage] = useState(12);
+  const [orderBy, setOrderBy] = useState('id');
+  const [order, setOrder] = useState('asc');
+
+  const cardRowsPerPage = 12
+  const handleSort = (property) => {
+    const isAsc = orderBy === property && order === 'asc';
+    setOrder(isAsc ? 'desc' : 'asc');
+    setOrderBy(property);
+  };
+
   useEffect(() => {
     dispatch(getEmployeeList({}))
   }, [])
@@ -67,11 +77,29 @@ export const EmployeeList = () => {
   }
 
   const filteredEmployeeList = useMemo(() => {
-    if (!search.trim()) return employeeList;
-    const searchLower = search?.toLowerCase().trim();
-    return employeeList.filter((employee) =>
-      employee?.id?.toString().toLowerCase().includes(searchLower));
-  }, [employeeList, search]);
+    if (!employeeList?.length) return [];
+    let filtered = employeeList;
+    if (search?.trim()) {
+      const searchLower = search.toLowerCase().trim();
+      filtered = employeeList.filter((employee) =>
+        employee?.id?.toString().toLowerCase().includes(searchLower) ||
+        employee?.name?.toString().toLowerCase().includes(searchLower) ||
+        employee?.emailId?.toString().toLowerCase().includes(searchLower) ||
+        employee?.country?.toString().toLowerCase().includes(searchLower) ||
+        employee?.mobile?.toString().toLowerCase().includes(searchLower)
+      );
+    }
+    if (orderBy && filtered.length > 1) {
+      filtered = [...filtered].sort((a, b) => {
+        const aVal = a[orderBy]?.toString().toLowerCase() || '';
+        const bVal = b[orderBy]?.toString().toLowerCase() || '';
+        if (aVal < bVal) return order === 'asc' ? -1 : 1;
+        if (aVal > bVal) return order === 'asc' ? 1 : -1;
+        return 0;
+      });
+    }
+    return filtered;
+  }, [employeeList, search, order, orderBy]);
 
   const handleSearchChange = useCallback((e) => {
     const value = e.target.value;
@@ -116,7 +144,7 @@ export const EmployeeList = () => {
             >
               <Grid item xs={4} >
                 <TextField
-                  placeholder="Search employee by Id"
+                  placeholder="Search employee ..."
                   value={search}
                   onChange={handleSearchChange}
                   fullWidth
@@ -179,6 +207,9 @@ export const EmployeeList = () => {
 
             {selected === 'table' ?
               <EmployeeTable
+                order={order}
+                orderBy={orderBy}
+                handleSort={handleSort}
                 page={page}
                 paginatedData={paginatedData}
                 rowsPerPage={rowsPerPage}
